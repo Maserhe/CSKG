@@ -37,7 +37,6 @@ public class EntityRelationshipDTO implements Serializable {
     private String createBy;
 
 
-
     /**
      * 备注
      */

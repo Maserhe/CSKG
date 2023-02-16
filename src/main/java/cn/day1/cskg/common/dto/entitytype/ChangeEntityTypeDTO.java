@@ -1,26 +1,21 @@
-package cn.day1.cskg.entity;
-
-import java.time.LocalDateTime;
-import java.io.Serializable;
+package cn.day1.cskg.common.dto.entitytype;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
- * <p>
- * 
- * </p>
+ * Description:
+ * 修改实体类型的DTO
  *
- * @author Maserhe
- * @since 2023-02-16
- */
+ * @author maserhe
+ * @date 2023/2/16 15:09
+ **/
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-public class EntityType implements Serializable {
+public class ChangeEntityTypeDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -45,20 +40,7 @@ public class EntityType implements Serializable {
      */
     private String status;
 
-    /**
-     * 创建时间  time
-     */
-    private LocalDateTime createTime;
 
-    /**
-     * 创建者  username
-     */
-    private String createBy;
-
-    /**
-     * 修改时间 time
-     */
-    private LocalDateTime updateTime;
 
     /**
      * 修改者 username
@@ -72,3 +54,4 @@ public class EntityType implements Serializable {
 
 
 }
+

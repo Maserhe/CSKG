@@ -2,6 +2,9 @@ package cn.day1.cskg.entity;
 
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -24,6 +27,7 @@ public class KnowledgeEntity implements Serializable {
     /**
      * 知识点实体ID  id
      */
+    @TableId(value = "know_ent_id", type = IdType.AUTO)
     private Integer knowEntId;
 
     /**

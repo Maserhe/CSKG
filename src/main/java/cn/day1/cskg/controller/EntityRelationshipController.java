@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author Maserhe
- * @since 2023-02-16
+ * @since 2023-02-02
  */
 @RestController
 @RequestMapping("/entity-relationship")
@@ -40,7 +40,7 @@ public class EntityRelationshipController {
      * @param dto
      * @return
      */
-    @PostMapping("/addRelationShip")
+    @PostMapping("/add")
     public Result addEntityRelationShip(@RequestBody EntityRelationshipDTO dto) {
 
         EntityRelationship relationship = new EntityRelationship();
@@ -51,13 +51,11 @@ public class EntityRelationshipController {
             return Result.fail("参数错误");
         }
 
-
         // 创建时间
         LocalDateTime time = LocalDateTime.now();
         relationship.setCreateTime(time);
         relationship.setUpdateTime(time);
         relationship.setUpdateBy(dto.getCreateBy());
-        relationship.setStatus("N");
 
         boolean save = entityRelationshipService.save(relationship);
         return save? Result.succ("添加成功"): Result.fail("添加失败");
@@ -97,7 +95,7 @@ public class EntityRelationshipController {
         if (!StringUtils.isEmpty(status) && !"N".equals(status) && !"F".equals(status)) {
             return Result.fail("参数错误");
         }
-        BeanUtil.copyProperties(sourceEntity, dto);
+        BeanUtil.copyProperties(dto,sourceEntity);
         sourceEntity.setUpdateTime(LocalDateTime.now());
 
         boolean saveOrUpdate = entityRelationshipService.saveOrUpdate(sourceEntity);
