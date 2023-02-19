@@ -62,9 +62,9 @@ public class EntityTypeController {
         entityType.setUpdateBy(dto.getCreateBy());
 
         boolean save = entityTypeService.save(entityType);
+
         return save? Result.succ("添加成功"): Result.fail("添加失败");
     }
-
 
     /**
      * 修改实体类型
@@ -73,7 +73,6 @@ public class EntityTypeController {
      */
     @PostMapping("/change")
     public Result changeEntityType(@RequestBody ChangeEntityTypeDTO dto) {
-
 
         // 检查是否 存在该 实体关系
         Integer id = dto.getEntTypeId();

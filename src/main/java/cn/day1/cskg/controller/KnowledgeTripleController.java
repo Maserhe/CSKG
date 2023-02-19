@@ -32,4 +32,7 @@ public class KnowledgeTripleController {
     public Result getAllKnowledgeTriple() {
         return Result.succ(knowledgeTripleService.list());
     }
+
+
+
 }
