@@ -158,7 +158,7 @@ public class KnowledgeEntityController {
      * @param text
      * @return
      */
-    @GetMapping("/text")
+    @GetMapping("/search")
     public Result searchKnowledge(String text) {
         
         if (StringUtils.isEmpty(text)) {
@@ -182,6 +182,39 @@ public class KnowledgeEntityController {
         SearchResultVO res = buildTree(nowNode, relationshipsList, typeList, childrenList, tripleList);
         return Result.succ(res);
     }
+
+    /**
+     * 根据 父亲 节点 获取 所有的 儿子 节点
+     * @param id
+     * @return
+     */
+    @GetMapping("/childrens")
+    public Result getChildrenTree(Integer id) {
+        if (id == null) return Result.fail("参数错误");
+        // 1。 匹配知识点
+        KnowledgeEntity nowNode = knowledgeEntityService.getById(id);
+        if (nowNode == null) return Result.fail("查询不到该节点");
+        // 2。 查询 所有 子节点 id
+        final List<KnowledgeTriple> tripleList = knowledgeTripleService.list(new QueryWrapper<KnowledgeTriple>().eq("triple_ent_headid", nowNode.getKnowEntId()));
+
+        // 不存在子节点
+        if (tripleList.size() == 0) {
+            return Result.fail("没有儿子");
+        }
+
+        // 3, 匹配 所有 子节点
+        List<Integer> childrenIdList = tripleList.stream().map(t -> t.getTripleEntTailid()).collect(Collectors.toList());
+
+        List<KnowledgeEntity> childrenList = knowledgeEntityService.listByIds(childrenIdList).stream().collect(Collectors.toList());
+
+        // 4， 查询所有 关系，查询所有 类型
+        List<EntityRelationship> relationshipsList = entityRelationshipService.list();
+        List<EntityType> typeList = entityTypeService.list();
+
+        SearchResultVO res = buildTree(nowNode, relationshipsList, typeList, childrenList, tripleList);
+        return Result.succ(res);
+    }
+
 
 
     /**
